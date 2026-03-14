@@ -20,16 +20,6 @@ The firmware reads environmental data from onboard sensors and serves the values
 
 ![System Architecture](docs/system_architecture.png)
 
-Temperature / Humidity Sensor  
-↓  
-STM32 Microcontroller  
-↓  
-TCP/IP Networking Stack  
-↓  
-Embedded HTTP Server  
-↓  
-Web Browser Client
-
 ---
 
 ## Hardware
@@ -85,22 +75,6 @@ Example browser output:
 
 Temperature: 24°C  
 Humidity: 45%
-
----
-
-## Repository Structure
-
-stm32-iot-sensor-webserver
-│
-├── firmware
-│   └── main.c
-│
-├── docs
-│   ├── serial_output.png
-│   ├── webpage_output.png
-│   └── system_architecture.png
-│
-└── README.md
 
 ---
 
