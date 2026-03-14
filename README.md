@@ -1,28 +1,39 @@
 # STM32 IoT Sensor Web Server
 
-This project implements an embedded HTTP server on an STM32 IoT Discovery board that exposes temperature and humidity sensor data to a web browser over Wi-Fi.
+Embedded IoT system built on the STM32 B-L475E-IOT01A Discovery Board that hosts a lightweight HTTP server and exposes environmental sensor data (temperature and humidity) over Wi-Fi.
 
-The firmware reads environmental data from onboard sensors and serves the values through a lightweight HTTP server. A client device such as a laptop or smartphone can connect to the board’s IP address and view the sensor readings directly in a web browser.
+The firmware acquires data from onboard sensors and serves the values to any client connected to the same network. A browser can access the device’s IP address and view live environmental readings in real time.
 
 ---
 
-## Features
+## Key Highlights
 
-- Embedded firmware developed for STM32 microcontroller
+- Embedded firmware written in C using STM32CubeIDE
 - Real-time temperature and humidity sensing
-- HTTP web server running on the microcontroller
-- Wi-Fi connectivity for browser-based monitoring
-- Serial debugging using ST-Link Virtual COM port
+- Embedded HTTP server running directly on the microcontroller
+- Wi-Fi connectivity enabling browser-based monitoring
+- Serial debugging through ST-Link Virtual COM interface
 
 ---
 
 ## System Architecture
 
+The system follows a simple embedded IoT pipeline:
+
+Sensor Data → STM32 Firmware → Wi-Fi Stack → HTTP Server → Web Browser Client
+
+- Sensors capture environmental data.
+- STM32 firmware processes and formats readings.
+- The networking stack exposes the data through an HTTP server.
+- Clients access the readings through a browser interface.
+
 ![System Architecture](docs/system_architecture.png)
 
 ---
 
-## Hardware
+## Hardware Platform
+
+Target board:
 
 STM32 B-L475E-IOT01A IoT Discovery Board
 
@@ -31,37 +42,32 @@ Key hardware components used:
 - STM32L475 microcontroller
 - Onboard temperature sensor
 - Onboard humidity sensor
-- Wi-Fi module
-- ST-Link debugger interface
+- Integrated Wi-Fi module
+- ST-Link debugger for flashing and serial communication
 
 ---
 
-## Firmware Overview
+## Firmware Design
 
-The firmware performs the following tasks:
+The firmware is responsible for sensor acquisition, networking initialization, and HTTP request handling.
 
-1. Initialize STM32 peripherals and board support package  
-2. Initialize the Wi-Fi networking stack  
-3. Acquire temperature and humidity sensor data  
-4. Launch an embedded HTTP server  
-5. Serve real-time sensor values to connected web clients  
+Main firmware file:
 
-Primary firmware implementation:
+![main.c](firmware/main.c)
 
-firmware/main.c
+Key responsibilities of the firmware:
 
-Responsibilities include:
-
-- Sensor data acquisition  
-- Network initialization  
-- HTTP response generation  
-- Serial debugging output  
+- Peripheral initialization
+- Wi-Fi networking setup
+- Environmental sensor data acquisition
+- Embedded HTTP server operation
+- Serial debugging output
 
 ---
 
 ## Demonstration
 
-When the firmware runs, the board prints its assigned IP address through the serial terminal.
+When the system starts, the device connects to Wi-Fi and prints the assigned IP address to the serial terminal.
 
 Example serial output:
 
@@ -69,7 +75,7 @@ WiFi Connected
 IP Address: 192.168.35.11  
 HTTP Server Started
 
-A client can open a browser and navigate to the printed IP address to access the sensor web interface.
+A client device can open a browser and navigate to the IP address to view sensor readings.
 
 Example browser output:
 
@@ -81,19 +87,20 @@ Humidity: 45%
 ## Development Environment
 
 - STM32CubeIDE  
-- C programming language  
+- C programming language
+- ST-Link debugger
 - Tera Term serial terminal  
 
 ---
 
-## Future Improvements
+## Possible Extensions
 
-Possible extensions include:
+Future improvements could include:
 
-- HTTPS support  
-- REST APIs for sensor data  
-- Mobile monitoring application  
-- Cloud data logging  
+- HTTPS/TLS support for secure communication
+- REST API interface for sensor access
+- Cloud integration for remote monitoring
+- Mobile or dashboard-based visualization 
 
 ---
 
