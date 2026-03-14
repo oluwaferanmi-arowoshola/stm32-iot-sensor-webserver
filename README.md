@@ -53,7 +53,7 @@ The firmware is responsible for sensor acquisition, networking initialization, a
 
 Main firmware file:
 
-![main.c](firmware/main.c)
+[main.c](firmware/main.c)
 
 Key responsibilities of the firmware:
 
