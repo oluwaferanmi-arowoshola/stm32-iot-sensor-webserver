@@ -84,6 +84,20 @@ Humidity: 45%
 
 ---
 
+## Example Output
+
+### Serial Console (ST-Link Virtual COM)
+
+The device prints Wi-Fi connection status and the assigned IP address to the serial terminal.
+
+![Serial Output](docs/serial_output.PNG)
+
+### Browser Interface
+
+A client on the same network can access the device using the printed IP address.
+
+![Web Interface](docs/webpage_output.PNG)
+
 ## Development Environment
 
 - STM32CubeIDE  
@@ -92,6 +106,17 @@ Humidity: 45%
 - Tera Term serial terminal  
 
 ---
+
+## Quick Start
+
+1. Open the project in **STM32CubeIDE**.
+2. Build the firmware project.
+3. Flash the firmware to the **STM32 B-L475E-IOT01A Discovery Board**.
+4. Open a serial terminal (e.g., **Tera Term**) and connect to the ST-Link Virtual COM port.
+5. Observe the IP address printed in the terminal.
+6. Open a web browser and navigate to the printed IP address.
+
+The browser will display the current temperature and humidity readings served by the embedded HTTP server.
 
 ## Possible Extensions
 
