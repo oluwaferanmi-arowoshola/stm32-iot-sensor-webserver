@@ -129,6 +129,18 @@ Future improvements could include:
 
 ---
 
+## Project Structure
+
+```text
+.
+├── docs/
+├── firmware/
+├── PROJECT_OVERVIEW.md/
+└── README.md
+```
+
+---
+
 ## Author
 
 Oluwaferanmi Arowoshola  
