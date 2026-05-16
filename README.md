@@ -1,31 +1,64 @@
 # STM32 IoT Sensor Web Server
 
-Embedded IoT system built on the STM32 B-L475E-IOT01A Discovery Board that hosts a lightweight HTTP server and exposes environmental sensor data (temperature and humidity) over Wi-Fi.
+**Embedded C · STM32CubeIDE · Wi-Fi · HTTP Server · Sensor Acquisition · ST-Link Serial Debugging**
 
-The firmware acquires data from onboard sensors and serves the values to any client connected to the same network. A browser can access the device’s IP address and view live environmental readings in real time.
+## Overview
+
+This project is an embedded IoT sensor web server built on the **STM32 B-L475E-IOT01A Discovery Board**. The firmware reads onboard environmental sensor data, including temperature and humidity, and exposes the live readings through a lightweight HTTP web server over Wi-Fi.
+
+A client connected to the same network can open a web browser, enter the STM32 device IP address, and view real-time environmental readings served directly from the microcontroller.
+
+This project demonstrates embedded firmware development, sensor acquisition, Wi-Fi networking, HTTP server operation, serial debugging, and hardware/software integration on an STM32 platform.
 
 ---
 
-## Key Highlights
+## What This Project Demonstrates
 
-- Embedded firmware written in C using STM32CubeIDE
-- Real-time temperature and humidity sensing
-- Embedded HTTP server running directly on the microcontroller
-- Wi-Fi connectivity enabling browser-based monitoring
-- Serial debugging through ST-Link Virtual COM interface
+- Embedded C firmware development on STM32 hardware
+- Sensor data acquisition from onboard environmental sensors
+- Wi-Fi initialization and network connectivity
+- Lightweight HTTP server operation on an embedded device
+- Browser-based monitoring of live microcontroller sensor data
+- Serial debugging through ST-Link Virtual COM port
+- Hardware/software integration and real-device validation
+- Local-network IoT device communication
+
+---
+
+## Quick Results
+
+| Feature | Result |
+|---|---|
+| Target Board | STM32 B-L475E-IOT01A Discovery Board |
+| Firmware Language | C |
+| IDE / Toolchain | STM32CubeIDE |
+| Sensor Data | Temperature and humidity |
+| Connectivity | Wi-Fi |
+| Interface | Browser-based HTTP page |
+| Debugging | ST-Link Virtual COM serial output |
+| Validation | Device IP accessed from browser on same network |
 
 ---
 
 ## System Architecture
 
-The system follows a simple embedded IoT pipeline:
+The system follows a simple embedded IoT data pipeline:
 
-Sensor Data → STM32 Firmware → Wi-Fi Stack → HTTP Server → Web Browser Client
+```text
+Onboard Sensors
+      ↓
+Sensor Driver / Acquisition Logic
+      ↓
+STM32 Firmware Application
+      ↓
+Wi-Fi Network Interface
+      ↓
+Embedded HTTP Server
+      ↓
+Browser Client on Local Network
+```
 
-- Sensors capture environmental data.
-- STM32 firmware processes and formats readings.
-- The networking stack exposes the data through an HTTP server.
-- Clients access the readings through a browser interface.
+The firmware collects environmental data from the onboard sensors, formats the readings, and serves them over Wi-Fi through an embedded HTTP server.
 
 ![System Architecture](docs/system_architecture.png)
 
@@ -35,7 +68,7 @@ Sensor Data → STM32 Firmware → Wi-Fi Stack → HTTP Server → Web Browser C
 
 Target board:
 
-STM32 B-L475E-IOT01A IoT Discovery Board
+**STM32 B-L475E-IOT01A IoT Discovery Board**
 
 Key hardware components used:
 
@@ -49,19 +82,40 @@ Key hardware components used:
 
 ## Firmware Design
 
-The firmware is responsible for sensor acquisition, networking initialization, and HTTP request handling.
+The firmware is responsible for sensor acquisition, networking initialization, HTTP server behavior, and debug output.
 
 Main firmware file:
 
 [main.c](firmware/main.c)
 
-Key responsibilities of the firmware:
+### Firmware Responsibilities
 
-- Peripheral initialization
-- Wi-Fi networking setup
-- Environmental sensor data acquisition
-- Embedded HTTP server operation
-- Serial debugging output
+- Initialize MCU peripherals
+- Configure onboard sensors
+- Acquire temperature and humidity readings
+- Initialize Wi-Fi connectivity
+- Start the embedded HTTP server
+- Serve live sensor readings to browser clients
+- Print connection status and IP address through serial output
+- Support debugging through ST-Link Virtual COM
+
+---
+
+## Data Flow
+
+```text
+Temperature / Humidity Sensors
+      ↓
+STM32 Firmware Reads Sensor Values
+      ↓
+Sensor Data Formatted for Web Output
+      ↓
+HTTP Server Responds to Browser Request
+      ↓
+Client Browser Displays Live Readings
+```
+
+This allows a user to monitor environmental conditions using only a browser on the same local network.
 
 ---
 
@@ -71,22 +125,26 @@ When the system starts, the device connects to Wi-Fi and prints the assigned IP 
 
 Example serial output:
 
-WiFi Connected  
-IP Address: 192.168.35.11  
+```text
+WiFi Connected
+IP Address: 192.168.35.11
 HTTP Server Started
+```
 
-A client device can open a browser and navigate to the IP address to view sensor readings.
+A client device can open a browser and navigate to the printed IP address to view sensor readings.
 
 Example browser output:
 
-Temperature: 24°C  
+```text
+Temperature: 24°C
 Humidity: 45%
+```
 
 ---
 
 ## Example Output
 
-### Serial Console (ST-Link Virtual COM)
+### Serial Console — ST-Link Virtual COM
 
 The device prints Wi-Fi connection status and the assigned IP address to the serial terminal.
 
@@ -94,38 +152,93 @@ The device prints Wi-Fi connection status and the assigned IP address to the ser
 
 ### Browser Interface
 
-A client on the same network can access the device using the printed IP address.
+A client on the same local network can access the device using the printed IP address.
 
 ![Web Interface](docs/webpage_output.PNG)
 
+---
+
 ## Development Environment
 
-- STM32CubeIDE  
+This project was developed using:
+
+- STM32CubeIDE
 - C programming language
+- STM32 HAL / board support libraries
 - ST-Link debugger
-- Tera Term serial terminal  
+- ST-Link Virtual COM serial interface
+- Tera Term serial terminal
+- Browser client for HTTP output validation
 
 ---
 
 ## Quick Start
 
-1. Open the project in **STM32CubeIDE**.
-2. Build the firmware project.
-3. Flash the firmware to the **STM32 B-L475E-IOT01A Discovery Board**.
-4. Open a serial terminal (e.g., **Tera Term**) and connect to the ST-Link Virtual COM port.
-5. Observe the IP address printed in the terminal.
-6. Open a web browser and navigate to the printed IP address.
+### 1. Open the project
 
-The browser will display the current temperature and humidity readings served by the embedded HTTP server.
+Open the firmware project in **STM32CubeIDE**.
 
-## Possible Extensions
+### 2. Build the firmware
 
-Future improvements could include:
+Build the project using the STM32CubeIDE build system.
 
-- HTTPS/TLS support for secure communication
-- REST API interface for sensor access
-- Cloud integration for remote monitoring
-- Mobile or dashboard-based visualization 
+### 3. Flash the board
+
+Flash the firmware to the **STM32 B-L475E-IOT01A Discovery Board** using ST-Link.
+
+### 4. Open a serial terminal
+
+Open a serial terminal such as **Tera Term** and connect to the ST-Link Virtual COM port.
+
+### 5. Read the assigned IP address
+
+After Wi-Fi connection, the board prints the assigned IP address to the serial console.
+
+### 6. Open the web page
+
+Open a browser on a device connected to the same network and navigate to the printed IP address.
+
+The browser will display the current temperature and humidity readings served by the STM32 board.
+
+---
+
+## How to Use
+
+1. Power the STM32 B-L475E-IOT01A Discovery Board.
+2. Flash the firmware through STM32CubeIDE.
+3. Open the serial terminal through ST-Link Virtual COM.
+4. Wait for Wi-Fi connection confirmation.
+5. Copy the printed IP address.
+6. Open the IP address in a web browser.
+7. View live temperature and humidity readings.
+
+---
+
+## Limitations
+
+- The HTTP server is intended for local-network monitoring, not public internet deployment.
+- HTTPS/TLS is not implemented in the current prototype.
+- The web interface is lightweight and focused on displaying sensor readings.
+- Sensor readings depend on onboard sensor availability and board configuration.
+- Wi-Fi credentials and network configuration may require local setup before deployment.
+- The project was validated as an academic embedded IoT prototype rather than a production IoT device.
+
+---
+
+## Future Improvements
+
+Potential future improvements include:
+
+- Add REST-style JSON endpoint for sensor data
+- Add browser auto-refresh for live updates
+- Add timestamped sensor readings
+- Add error handling for Wi-Fi disconnect/reconnect events
+- Move Wi-Fi credentials to a configuration file or secure provisioning method
+- Add MQTT support for IoT messaging
+- Add cloud dashboard integration for remote monitoring
+- Add HTTPS/TLS support for secure communication
+- Add local or cloud-based data logging
+- Add support for additional sensors
 
 ---
 
@@ -133,18 +246,33 @@ Future improvements could include:
 
 ```text
 .
-├── docs/
-├── firmware/
-├── PROJECT_OVERVIEW.md/
-└── README.md
+├── docs/                  # Diagrams, screenshots, and documentation images
+├── firmware/              # STM32 firmware source files
+├── PROJECT_OVERVIEW.md    # Additional project notes or overview
+├── README.md              # Project documentation
+└── LICENSE
 ```
+
+---
+
+## Key Takeaways
+
+This project demonstrates a complete embedded IoT workflow using STM32 hardware:
+
+```text
+Sensor Acquisition → Firmware Processing → Wi-Fi Connectivity → HTTP Server → Browser-Based Monitoring
+```
+
+The project strengthened my experience with embedded C, STM32 development, sensor integration, Wi-Fi communication, serial debugging, and hardware/software validation on a real microcontroller platform.
 
 ---
 
 ## Author
 
-Oluwaferanmi Arowoshola
+**Oluwaferanmi Arowoshola**  
+M.S. Electrical & Computer Engineering  
+Embedded Systems · Firmware · IoT · Hardware/Software Integration
 
-M.S. Electrical & Computer Engineering
+## License
 
-Embedded Systems · Real-Time Systems · IoT
+This project is licensed under the MIT License.
